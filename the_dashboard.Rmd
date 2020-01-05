@@ -1,5 +1,5 @@
 ---
-title: "Example dashboard with static data from Google"
+title: "Where are the bands I've been listening to lately from"
 author: "John Ray"
 output:
   flexdashboard::flex_dashboard:
@@ -9,9 +9,12 @@ output:
 
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(ggplot2)
 library(googlesheets4)
 library(flexdashboard)
 library(plotly)
+library(maps)
+library(knitr)
 
 # Make googlesheets4 not try to authenticate, since we're using a public sheet
 sheets_deauth()
@@ -23,37 +26,48 @@ sheets_deauth()
 # authenticated into your account. See the googlesheets4 documentation for more
 # details
 remote_data <- read_sheet("https://docs.google.com/spreadsheets/d/1XZ6n-2_RhQnu_ZwuUSUIhLIezA5y0J9MTPd0qJ1Alc0", sheet = 'full')
-remote_data$lab <- paste0("Band: ", remote_data$band,"\nCity: ", remote_data$city, "Listen at: ", remote_data$url)
+remote_data$lab <- paste0("Band: ", remote_data$band,"\nCity: ", remote_data$city, "\nListen at: ", remote_data$url)
 ```
 
-## Row
+## Row {data-height=800}
+-------------------------------------
 
-### Categories {.value-box}
+### Band hometowns
+
+```{r}
+world <- map_data("world")
+
+the_plot <- ggplot(remote_data) +
+  borders("world", xlim = c(min(remote_data$lon) - 5, max(remote_data$lon) + 5), ylim = c(min(remote_data$lat) - 5, max(remote_data$lat) + 5)) +
+  geom_jitter(aes(x = lon, y = lat, text = lab), width = .6, size = 2, color = "#CF6F55") +
+  theme_void() +
+  coord_fixed(1.3)
+
+# Put ggplotly() inside renderPlotly({})
+renderPlotly({
+  ggplotly(the_plot, tooltip = "text")
+})
+```
+
+## Row {data-height=200 .tabset .tabset-fade}
+-------------------------------------
+
+### New bands {.value-box}
 
 ```{r}
 # Find the number of unique categories
-n_categories <- remote_data %>% distinct(band) %>% nrow()
+n_bands <- remote_data %>% distinct(band) %>% nrow()
+n_cities <- remote_data %>% distinct(city) %>% nrow()
+vb_val <- paste0(n_bands, " bands from ", n_cities, " different places")
 
 # Show the number in a special valueBox (note the {.value-box} CSS class
 # above—that applies the CSS class to the HTML output and makes it render
 # correctly)
-valueBox(value = n_categories, icon = "fas fa-users")
+valueBox(value = vb_val, icon = "fas fa-users")
 ```
 
-
-## Row
-
-###
+### The data
 
 ```{r}
-the_plot <- ggplot(remote_data, aes(x = lon, y = lat, label = lab)) +
-  geom_point() +
-  geom_jitter() +
-  geom_label(aes(label = lab)) +
-  theme_minimal()
-
-# Put ggplotly() inside renderPlotly({})
-renderPlotly({
-  ggplotly(the_plot, tooltip = "label")
-})
+kable(remote_data[, c('band', 'city', 'url')], caption = "These are the bands plotted on the map")
 ```
