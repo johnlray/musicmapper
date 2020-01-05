@@ -24,6 +24,7 @@ sheets_deauth()
 # The 1RKNn84xVLUanhGyX8DPvDSd8zt4GX_eBmK2ZX2nf0BI comes from the shared link
 # URL from Google Sheets. You can also refer to sheets by name if you're
 # authenticated into your account. See the googlesheets4 documentation for more
+# In the current version of googlesheets4, this will require you to sign into Google
 # details
 remote_data <- read_sheet("https://docs.google.com/spreadsheets/d/1XZ6n-2_RhQnu_ZwuUSUIhLIezA5y0J9MTPd0qJ1Alc0", sheet = 'full')
 remote_data$lab <- paste0("Band: ", remote_data$band,"\nCity: ", remote_data$city, "\nListen at: ", remote_data$url)
@@ -35,8 +36,10 @@ remote_data$lab <- paste0("Band: ", remote_data$band,"\nCity: ", remote_data$cit
 ### Band hometowns
 
 ```{r}
+# Get a small map of the world
 world <- map_data("world")
 
+# Plot the area that contains my data
 the_plot <- ggplot(remote_data) +
   borders("world", xlim = c(min(remote_data$lon) - 5, max(remote_data$lon) + 5), ylim = c(min(remote_data$lat) - 5, max(remote_data$lat) + 5)) +
   geom_jitter(aes(x = lon, y = lat, text = lab), width = .6, size = 2, color = "#CF6F55") +
