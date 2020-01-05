@@ -9,11 +9,13 @@ library(ggmap)
 
 getOption("ggmap")
 
-df <- read_sheet("https://docs.google.com/spreadsheets/d/1XZ6n-2_RhQnu_ZwuUSUIhLIezA5y0J9MTPd0qJ1Alc0/edit#gid=0")
+df <- read_sheet("https://docs.google.com/spreadsheets/d/1XZ6n-2_RhQnu_ZwuUSUIhLIezA5y0J9MTPd0qJ1Alc0")
 
 locs <- df %>%
-  filter(is.na(x)) %>%
   select(city) %>%
   distinct() %>%
   mutate_geocode(location = city, output = "latlon")
 
+df <- left_join(df, locs)
+
+sheets_write(df, ss = "https://docs.google.com/spreadsheets/d/1XZ6n-2_RhQnu_ZwuUSUIhLIezA5y0J9MTPd0qJ1Alc0", sheet = "full")
