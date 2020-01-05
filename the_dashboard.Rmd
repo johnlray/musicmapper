@@ -1,0 +1,57 @@
+---
+title: "Example dashboard with static data from Google"
+author: "John Ray"
+output:
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    theme: yeti
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(googlesheets4)
+library(flexdashboard)
+library(plotly)
+
+# Make googlesheets4 not try to authenticate, since we're using a public sheet
+sheets_deauth()
+```
+
+```{r get-data, message=FALSE, include=FALSE}
+# The 1RKNn84xVLUanhGyX8DPvDSd8zt4GX_eBmK2ZX2nf0BI comes from the shared link
+# URL from Google Sheets. You can also refer to sheets by name if you're
+# authenticated into your account. See the googlesheets4 documentation for more
+# details
+remote_data <- read_sheet("1XZ6n-2_RhQnu_ZwuUSUIhLIezA5y0J9MTPd0qJ1Alc0")
+```
+
+## Row
+
+### Categories {.value-box}
+
+```{r}
+# Find the number of unique categories
+n_categories %>% remote_data %>% distinct(band) %>% nrow()
+
+# Show the number in a special valueBox (note the {.value-box} CSS class
+# above—that applies the CSS class to the HTML output and makes it render
+# correctly)
+valueBox(value = n_categories, icon = "fas fa-users")
+```
+
+
+## Row
+
+###
+
+```{r}
+the_plot <- ggplot(remote_data, aes(x = x, y = y)) +
+  geom_point() +
+  geom_label(aes(label = lab)) +
+  theme_minimal()
+
+# Put ggplotly() inside renderPlotly({})
+renderPlotly({
+  ggplotly(my_plot, tooltip = "text")
+})
+```
