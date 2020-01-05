@@ -22,7 +22,7 @@ sheets_deauth()
 # URL from Google Sheets. You can also refer to sheets by name if you're
 # authenticated into your account. See the googlesheets4 documentation for more
 # details
-remote_data <- read_sheet("1XZ6n-2_RhQnu_ZwuUSUIhLIezA5y0J9MTPd0qJ1Alc0")
+remote_data <- read_sheet("https://docs.google.com/spreadsheets/d/1XZ6n-2_RhQnu_ZwuUSUIhLIezA5y0J9MTPd0qJ1Alc0", sheet = 'full')
 ```
 
 ## Row
@@ -31,7 +31,7 @@ remote_data <- read_sheet("1XZ6n-2_RhQnu_ZwuUSUIhLIezA5y0J9MTPd0qJ1Alc0")
 
 ```{r}
 # Find the number of unique categories
-n_categories %>% remote_data %>% distinct(band) %>% nrow()
+n_categories <- remote_data %>% distinct(band) %>% nrow()
 
 # Show the number in a special valueBox (note the {.value-box} CSS class
 # above—that applies the CSS class to the HTML output and makes it render
@@ -45,13 +45,13 @@ valueBox(value = n_categories, icon = "fas fa-users")
 ###
 
 ```{r}
-the_plot <- ggplot(remote_data, aes(x = x, y = y)) +
+the_plot <- ggplot(remote_data, aes(x = lon, y = lat)) +
   geom_point() +
   geom_label(aes(label = lab)) +
   theme_minimal()
 
 # Put ggplotly() inside renderPlotly({})
 renderPlotly({
-  ggplotly(my_plot, tooltip = "text")
+  ggplotly(the_plot)
 })
 ```
