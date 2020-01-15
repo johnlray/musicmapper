@@ -42,7 +42,7 @@ world <- map_data("world")
 # Plot the area that contains my data
 the_plot <- ggplot(remote_data) +
   borders("world", xlim = c(min(remote_data$lon) - 8, max(remote_data$lon) + 8), ylim = c(min(remote_data$lat) - 8, max(remote_data$lat) + 8)) +
-  geom_jitter(aes(x = lon, y = lat, text = lab), width = .6, size = 2, color = "#CF6F55") +
+  geom_jitter(aes(x = lon, y = lat, text = lab), width = .8, size = 1.8, color = "#CF6F55") +
   theme_void() +
   coord_fixed(1.3)
 
