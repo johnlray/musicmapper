@@ -4,7 +4,7 @@ author: "John Ray"
 output:
   flexdashboard::flex_dashboard:
     orientation: rows
-    theme: sandstone
+    theme: yeti
 ---
 
 ```{r setup, include=FALSE}
