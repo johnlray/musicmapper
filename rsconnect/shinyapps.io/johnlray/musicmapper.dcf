@@ -5,6 +5,6 @@ account: johnlray
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1628051
-bundleId: 2750549
+bundleId: 2750571
 url: https://johnlray.shinyapps.io/musicmapper/
-when: 1579852443.12882
+when: 1579853336.99118

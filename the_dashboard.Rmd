@@ -3,8 +3,8 @@ title: "Where are the bands I've been listening to lately from"
 author: "John Ray"
 output:
   flexdashboard::flex_dashboard:
-    orientation: rows
-    theme: readable
+    orientation: column
+    theme: simplex
 ---
 
 ```{r setup, include=FALSE}
@@ -29,7 +29,7 @@ remote_data <- read_sheet("https://docs.google.com/spreadsheets/d/1XZ6n-2_RhQnu_
 remote_data$lab <- paste0("Band: ", remote_data$band,"\nCity: ", remote_data$city, "\nListen at: ", remote_data$url)
 ```
 
-## Row {.tabset .tabset-fade}
+## Column {width=700}
 -------------------------------------
 
 ### Band hometowns
@@ -51,9 +51,9 @@ renderPlotly({
 })
 ```
 
-### The data {.tabset .tabset-face}
+## Column {.tabset .tabset-face width=300}
 
-## New bands {.value-box}
+### New bands {.value-box}
 
 ```{r}
 # Find the number of unique categories
@@ -67,7 +67,7 @@ vb_val <- paste0(n_bands, " bands from ", n_cities, " different places")
 valueBox(value = vb_val, icon = "fas fa-users")
 ```
 
-## Table
+### Table
 
 ```{r}
 kable(remote_data[, c('band', 'city', 'url')], caption = "These are the bands plotted on the map")
