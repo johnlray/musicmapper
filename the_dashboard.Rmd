@@ -4,7 +4,7 @@ author: "John Ray"
 output:
   flexdashboard::flex_dashboard:
     orientation: rows
-    theme: yeti
+    theme: readable
 ---
 
 ```{r setup, include=FALSE}
@@ -51,10 +51,9 @@ renderPlotly({
 })
 ```
 
-## Row {data-height=200 .tabset .tabset-fade}
--------------------------------------
+### The data {.tabset .tabset-face}
 
-### New bands {.value-box}
+## New bands {.value-box}
 
 ```{r}
 # Find the number of unique categories
@@ -68,7 +67,7 @@ vb_val <- paste0(n_bands, " bands from ", n_cities, " different places")
 valueBox(value = vb_val, icon = "fas fa-users")
 ```
 
-### The data
+## Table
 
 ```{r}
 kable(remote_data[, c('band', 'city', 'url')], caption = "These are the bands plotted on the map")
