@@ -22,9 +22,9 @@ sheets_deauth()
 ```
 
 ```{r get-data, message=FALSE, include=FALSE}
-# The 1RKNn84xVLUanhGyX8DPvDSd8zt4GX_eBmK2ZX2nf0BI comes from the shared link
-# URL from Google Sheets.
-# In the current version of googlesheets4, this will require you to sign into Google
+# The 1RKNn84xVLUanhGyX8DPvDSd8zt4GX_eBmK2ZX2nf0BI is the shared link
+# URL from GoogleSheets
+# In the current version of googlesheets4, this will require you to sign into the Docs API
 remote_data <- read_sheet("https://docs.google.com/spreadsheets/d/1XZ6n-2_RhQnu_ZwuUSUIhLIezA5y0J9MTPd0qJ1Alc0", sheet = 'full')
 remote_data$lab <- paste0("Band: ", remote_data$band,"\nCity: ", remote_data$city, "\nListen at: ", remote_data$url)
 ```
@@ -61,9 +61,6 @@ n_bands <- remote_data %>% distinct(band) %>% nrow()
 n_cities <- remote_data %>% distinct(city) %>% nrow()
 vb_val <- paste0(n_bands, " bands from ", n_cities, " different places")
 
-# Show the number in a special valueBox (note the {.value-box} CSS class
-# above—that applies the CSS class to the HTML output and makes it render
-# correctly)
 valueBox(value = vb_val, icon = "fas fa-users")
 ```
 
