@@ -29,7 +29,7 @@ remote_data <- read_sheet("https://docs.google.com/spreadsheets/d/1XZ6n-2_RhQnu_
 remote_data$lab <- paste0("Band: ", remote_data$band,"\nCity: ", remote_data$city, "\nListen at: ", remote_data$url)
 ```
 
-## Column {width=700}
+## Column {width=800}
 -------------------------------------
 
 ### Band hometowns
