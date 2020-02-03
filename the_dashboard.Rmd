@@ -4,6 +4,7 @@ author: "John Ray"
 output:
   flexdashboard::flex_dashboard:
     orientation: column
+    vertical_layout: scroll
     theme: simplex
 ---
 
@@ -31,7 +32,7 @@ remote_data <- read_sheet("https://docs.google.com/spreadsheets/d/1XZ6n-2_RhQnu_
 remote_data$lab <- paste0("Band: ", remote_data$band,"\nCity: ", remote_data$city, "\nListen at: ", remote_data$url)
 ```
 
-## Column {width=800}
+## Column {data-width=800}
 -------------------------------------
 
 ### Band hometowns
@@ -53,7 +54,7 @@ renderPlotly({
 })
 ```
 
-## Column {.tabset .tabset-face width=300}
+## Column {.tabset .tabset-face data-width=300}
 
 ### New bands {.value-box}
 
