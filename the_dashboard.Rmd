@@ -32,7 +32,7 @@ remote_data <- read_sheet("https://docs.google.com/spreadsheets/d/1XZ6n-2_RhQnu_
 remote_data$lab <- paste0("Band: ", remote_data$band,"\nCity: ", remote_data$city, "\nListen at: ", remote_data$url)
 ```
 
-## Column {data-width=800}
+## Column {.tabset .tabset-face}
 -------------------------------------
 
 ### Band hometowns
@@ -53,8 +53,6 @@ renderPlotly({
   ggplotly(the_plot, tooltip = "text")
 })
 ```
-
-## Column {.tabset .tabset-face data-width=300}
 
 ### New bands {.value-box}
 
