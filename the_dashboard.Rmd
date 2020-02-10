@@ -20,7 +20,6 @@ library(maps)
 library(knitr)
 library(rsconnect)
 
-# Make googlesheets4 not try to authenticate, since we're using a public sheet
 sheets_deauth()
 ```
 
