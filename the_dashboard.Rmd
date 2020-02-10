@@ -20,6 +20,8 @@ library(maps)
 library(knitr)
 library(rsconnect)
 
+# set project wd
+
 sheets_deauth()
 ```
 
