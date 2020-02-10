@@ -50,7 +50,12 @@ renderPlotly({
 })
 ```
 
-### New bands {.value-box}
+### Table
+
+```{r}
+kable(remote_data[, c('band', 'city', 'url')], caption = "These are the bands plotted on the map")
+```
+## Row {.value-box}
 
 ```{r}
 # Find the number of unique categories
@@ -59,10 +64,4 @@ n_cities <- remote_data %>% distinct(city) %>% nrow()
 vb_val <- paste0(n_bands, " bands from ", n_cities, " different places")
 
 valueBox(value = vb_val, icon = "fas fa-users")
-```
-
-### Table
-
-```{r}
-kable(remote_data[, c('band', 'city', 'url')], caption = "These are the bands plotted on the map")
 ```
