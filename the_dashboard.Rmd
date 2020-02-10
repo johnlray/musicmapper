@@ -24,9 +24,6 @@ sheets_deauth()
 ```
 
 ```{r get-data, message=FALSE, include=FALSE}
-# The 1RKNn84xVLUanhGyX8DPvDSd8zt4GX_eBmK2ZX2nf0BI is the shared link
-# URL from GoogleSheets
-# In the current version of googlesheets4, this will require you to sign into the Docs API
 remote_data <- read_sheet("https://docs.google.com/spreadsheets/d/1XZ6n-2_RhQnu_ZwuUSUIhLIezA5y0J9MTPd0qJ1Alc0", sheet = 'full')
 remote_data$lab <- paste0("Band: ", remote_data$band,"\nCity: ", remote_data$city, "\nListen at: ", remote_data$url)
 ```
